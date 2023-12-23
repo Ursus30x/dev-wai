@@ -1,0 +1,186 @@
+
+:root {
+    --bg-color: #DBDCE2;
+    scrollbar-width: none; 
+}
+
+/*scrollbar*/
+::-webkit-scrollbar{
+    width:0px;
+}
+/*side bar*/
+#side-panel{
+    position: fixed;
+    right:0;
+    background-color: #000000;
+    height: 100%;
+    z-index: 99;
+    width:0%;
+    transition: all 0.5s;
+    overflow: hidden;
+    white-space: nowrap;
+}
+#panel-bg{
+    position: fixed;
+    width: 0%;
+    height: 100%;
+    background-color: black;
+    opacity: 0.2;
+    z-index: 98;
+}
+#closeButton{
+    margin:2vh;
+    height: 6vh;
+    float:right;
+}
+.option > h4{
+    margin:0;
+}
+@media (max-width: 600px){
+	nav{
+        margin-top: 12vh;
+        margin-left:20%;
+    }
+}
+@media (min-width: 601px) {
+	nav{
+        margin-top: 12vh;
+        margin-left:60%;
+    }
+}
+
+
+/*header style*/
+header{
+    z-index: 5;
+    height: 10vh;
+    width: 100vw;
+    position: sticky;
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    background-color: #000000;
+    color:white;
+    top:0px;
+}
+#logo{
+    width: calc(10vh*2.18)
+}
+.logo-img{
+    height: 100%;
+}
+.option{
+    transition: 1s all;
+    width: 33%;
+}
+.noJsOption{
+    transition: 1s all;
+    width: 33%;
+    
+}
+.noJsOption > h4{
+    text-align: center;
+    padding: 5%;
+    margin: auto;
+}
+.option:hover{
+    background-color: #191919;
+
+}
+.no-js-menu{
+    display: flex;
+
+
+}
+.no-js-menu > a{
+    margin: 1%;
+    align-content: center;
+}
+/*body and global styles*/
+body{
+    background-color: var(--bg-color);
+    -ms-overflow-style: none;  /* IE and Edge */
+}
+@media (max-width: 600px){
+	main{
+        margin:5vh 5vw 0;
+    }
+    .no-js-menu > a{
+        color: #000000;
+        background-color: #adadad;
+        text-align: center;
+    }
+    .no-js-menu > a:hover{
+        color: #adadad;
+    }
+    #headerMenu{
+        display: none;
+        justify-content: space-between;
+    }
+    #mobileMenu{
+        justify-content: space-between;
+        width: 100%;
+    }
+    
+
+}
+@media (min-width: 601px) {
+	main{
+        margin:5vh 15vw 0;
+    }
+    #mobileMenu{
+        display: none;
+    }
+    #headerMenu{
+        justify-content: space-between;
+        float: right;
+        width: 50vw;
+    }
+}
+
+table,th,tr,td{
+    border: 1px solid black ;
+}
+
+#goBackButtons{
+    display: flex;
+    margin: 5%;
+    justify-content: space-between;
+}
+
+.goBackButton{
+    background-color: black;
+    text-align: center;
+    width: 40%;
+    padding: 3%;
+}
+
+.goBackButton:hover{
+    background-color: rgb(66, 60, 60);
+    text-align: center;
+    width: 40%;
+    padding: 3%;
+}
+
+/*footer style*/
+footer{
+    display:flex;
+    width: 100%;
+    height: 8vh;
+    justify-content: center;
+    background-color: #c5c5c7;
+    padding-top: 1%;
+    margin-top: 5%;
+    align-content: center;
+}
+#contact-info{
+
+    vertical-align: text-bottom;
+    
+}
+/* deafault settings for links*/
+a {
+	text-decoration: none;
+    color: #FFFFFF;
+	transition: 1s all;
+}

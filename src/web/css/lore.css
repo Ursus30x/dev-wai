@@ -1,0 +1,63 @@
+#map{
+    float: right;
+    text-align: right;
+    width: 50%;
+    margin: 3%;
+   
+}
+#map > sup{
+    color: black;
+}
+#mapImg{
+    width: 100%;
+    height: auto;
+}
+#faerunArticle > p{
+    text-align: justify; 
+}
+#animation{
+    margin: 6vh 2%;
+    height: 10vh;
+}
+#textAnimation{
+  position: relative;
+  animation: move 5s infinite;
+}
+#textAnimation::first-letter{
+    color:red;
+    font-size: 2rem;
+}
+@keyframes move {
+    0%   {top: 0px;}
+    50%  {top: 10vh;}
+    100% {top: 0px;}
+}
+.raceTab{
+    margin: 5%;
+}
+.raceTab > p{
+    text-align: justify;
+    text-justify: auto;
+}
+@media only screen
+and (orientation:landscape) {
+    .raceImg{
+        float:right;
+    }
+}
+@media only screen
+and (orientation:portrait) {
+    .raceImg{
+        width:100%;
+    }
+}
+#sources{
+    margin-top:1%;
+}
+#sources > ul{
+    margin:2px;
+}
+
+.sourceLink{
+    color: red;
+}
