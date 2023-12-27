@@ -35,8 +35,19 @@
                 </g>
             </svg>
             <nav>
-                <a class="option" href="/gallery"><h4>Image gallery</h4></a>
-                <a class="option" href="/login"><h4>Log In</h4></a>
+                <?php if(!isset($_SESSION['isLoggedIn'])): ?>
+                    <a class="option" href="/login"><h4>Log In</h4></a>
+                <?php else: ?>
+                    <div id="userInfo">
+                        <img src="img/icons/userIco.svg" width="20px" height="20px" style="display: inline;">
+                        <h4 style="color:white; display: inline;"><?= $_SESSION['username'] ?></h4>
+                    </div>
+                    <a class="option" href="/logout"><h4>Log Out</h4></a>
+                <?php endif ?>
+                <br>
+                <a class="option" href="/gallery?page=1"><h4>Image gallery</h4></a>
+                <a class="option" href="/register?error=0"><h4>Create Account</h4></a>
+                
                 <br>
                 <a class="option" href="/main"><h4>Main page</h4></a>
             </nav>
@@ -91,7 +102,11 @@
                 <br>
                 <label>
                     <span>Author:</span>
-                    <input type="text" name="author"  required/>
+                    <input type="text" name="author" 
+                    <?php if(isset($_SESSION['username'])): ?>
+                    value="<?= $_SESSION['username'] ?>"
+                    <?php endif ?> 
+                    required/>
                 </label>
                 <br>
                 <label>
@@ -109,7 +124,16 @@
                     <span>Watermark text:</span>
                     <input type="text" name="watermark"  required/>
                 </label>
-
+                <br>
+                <?php if(isset($_SESSION['isLoggedIn'])): ?>
+                <label>
+                    <span>Visibility</span>
+                    <input type="radio" id="private" name="visibility" value="private">
+                    <label for="private">Private</label>
+                    <input type="radio" id="public" name="visibility" value="public">
+                    <label for="public">Public</label>
+                </label>
+                <?php endif ?>
                 <div>
                     <a href="/gallery?page=1" class="cancel">Cancel</a>
                     <input type="submit" value="Save"/>

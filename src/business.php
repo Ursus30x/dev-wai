@@ -27,6 +27,11 @@ function get_users(){
     return $db->users->find()->toArray();
 }
 
+function get_user($query){
+    $db = get_db();
+    return $db->users->findOne($query);
+}
+
 function get_image($id){
     $db = get_db();
     return $db->images->findOne(['_id' => new ObjectID($id)]);

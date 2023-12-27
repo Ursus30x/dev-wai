@@ -35,7 +35,7 @@
                 <a class="option" href="/rules"><h4>Basic rules</h4></a>
                 <a class="option" href="/lore"><h4>Lore of the game</h4></a>
                 <br>
-                <a class="option" href="/gallery"><h4>Community gallery</h4></a>
+                <a class="option" href="/gallery?page=1"><h4>Community gallery</h4></a>
             </nav>
         </div>
         <header>

@@ -94,34 +94,47 @@
         </header>
         <main>
             <h2>Community images</h2>
-            <?php if(count($images)): ?>
-                <?php for($i=(IMGS_PER_PAGE)*((int)($_GET['page'])-1);$i<(IMGS_PER_PAGE)*((int)($_GET['page'])) && $i < count($images);$i++): 
+            <form method="post" action="/remeber?from=gallery">
+                <?php if(count($images)): ?>
+                    <?php for($i=(IMGS_PER_PAGE)*((int)($_GET['page'])-1);$i<(IMGS_PER_PAGE)*((int)($_GET['page'])) && $i < count($images);$i++): 
                     $image = $images[$i]?>
-                    <div class="comImg">
-                        <a href="<?= IMG_DEST . strtolower(pathinfo($image['source'] ,PATHINFO_FILENAME)) . "_watermark.png"?>">
-                            <img src="<?= IMG_DEST . strtolower(pathinfo($image['source'] ,PATHINFO_FILENAME)) . "_thumbnail.png"?>" class="comImgMini" alt="community image">
-                        </a>
-                        <br>
-                        <div class="comImgInfo">
-                            <b class="comImgTitle"><?= $image['title'] ?></b>
-                            <p class="comImgAuthor"><?= $image['author'] ?></p>
-                        </div>
-                    </div>
-                <?php endfor ?>
-            <?php else: ?>
-                <h4>No images posted yet</h4>
-            <?php endif ?>
-            <p id="imagesAmount">Total images: <?= count($images) ?></p>
-            <div>
-                <?php if((int)($_GET['page']) > 1): ?> 
-                    <a href="/gallery?page=<?= (int)($_GET['page'])-1?>">Previous</a>
+                            <?php if($image['visibility']=='public' || ($image['visibility']=='private' && $image['author']==$_SESSION['username'])): ?>   
+                            <div class="comImg">
+                                <a href="<?= IMG_DEST . pathinfo($image['source'] ,PATHINFO_FILENAME) . "_watermark.png"?>">
+                                    <img src="<?= IMG_DEST . pathinfo($image['source'] ,PATHINFO_FILENAME) . "_thumbnail.png"?>" class="comImgMini" alt="community image">
+                                </a>
+                                <br>
+                                <div class="comImgInfo">
+                                    <b class="comImgTitle"><?= $image['title'] ?></b>
+                                    <p class="comImgAuthor"><?= $image['author'] ?></p>
+                                    <input type="checkbox" name="remebered[]" value="<?= $image['_id'] ?>" 
+                                    <?php if( in_array($image['_id'], $_SESSION['remebered'] ) ) :?> 
+                                        checked
+                                    <?php endif ?>>
+                                    <?php if($image['visibility']=='private'): ?>
+                                        <p>(Private)</p>
+                                    <?php endif ?>
+                                </div>
+                            </div>
+                        <?php endif ?>
+                    <?php endfor ?>
+                <?php else: ?>
+                    <h4>No images posted yet</h4>
                 <?php endif ?>
-                <p><?= ($_GET['page']) ?></p>
-                <a href="/gallery?page=<?= (int)($_GET['page'])+1?>">Next</a>
-
-            </div>
-            <a href="/newImg?error=0" id="addNewImg">Add new image</a>
-            
+                <p id="imagesAmount">Total images: <?= count($images) ?></p>
+                
+                <div>
+                    <?php if( (int)($_GET['page']) > 1): ?> 
+                        <a href="/gallery?page=<?= (int)($_GET['page'])-1?>">Previous</a>
+                    <?php endif ?>
+                    <p><?= ($_GET['page']) ?></p>
+                    <?php if( (int)($_GET['page']) < count($images)/IMGS_PER_PAGE): ?> 
+                        <a href="/gallery?page=<?= (int)($_GET['page'])+1?>">Next</a>
+                    <?php endif ?>
+                </div>
+                <a href="/newImg?error=0" id="addNewImg">Add new image</a>
+                <input type="submit" value="Remeber chosen">
+            </form>
         </main>
         <footer>
             <div id="contactInfo">

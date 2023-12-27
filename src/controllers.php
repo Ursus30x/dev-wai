@@ -19,18 +19,26 @@ function rules(&$model){
 }
 
 
+
+
 function gallery(&$model){
     $images = get_images();
+    if(!isset($_SESSION['remebered']))
+        $_SESSION['remebered'] = [];
+    if(!isset($_SESSION['username']))
+        $_SESSION['username'] = null;
+    
     $model['images']= $images;
     return 'gallery_view';
 }
 
-function newImg(&$model)
+function newImg()
 {
     $image = [
         'title' => null,
         'author' => null,
-        'source' => null,
+        'source' => null, 
+        'visibility' => 'public',
         '_id' => null
     ];
 
@@ -40,6 +48,10 @@ function newImg(&$model)
             'author' => $_POST['author'],
             'source' => basename($_FILES["source"]["name"])
         ];
+
+        if(isset($_POST['visibility'])){
+            $image['visibility'] = $_POST['visibility'];
+        }
 
         $imageStatus = imageCheck();
         if($imageStatus == 0){
@@ -54,8 +66,6 @@ function newImg(&$model)
         else if ($imageStatus == 2) return 'redirect:newImg?error=2';
         else return 'redirect:newImg?error=0';
     }
-
-    $model['image'] = $image;
 
     return 'newImg_view';
 }
@@ -98,15 +108,14 @@ function login(){
             'password' => hash('sha256', $_POST['password'])
         ];
 
-        $users = get_users();
-        foreach($users as $user){
-            if($user['username']==$login['username'] 
-            && $user['password']==$login['password'] ){
-                $_SESSION['isLoggedIn']=true;
-                $_SESSION['username']=$user['username'];
-                return "redirect:gallery?page=1";
-            }
+        $user = get_user($login);
+
+        if ($user) {
+            $_SESSION['isLoggedIn']=true;
+            $_SESSION['username']=$user['username'];
+            return "redirect:gallery?page=1";
         }
+
         return "redirect:login";
     }
 
@@ -114,8 +123,37 @@ function login(){
 }
 
 function logout(){
-    unset($_SESSION['isLoggedIn']);
-    unset($_SESSION['username']);
-
+    session_destroy();
     return "redirect:gallery?page=1";
+}
+
+function updateRemebered(){
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remebered'])) {
+        unset($_SESSION['remebered']);
+        $_SESSION['remebered'] = [];
+        
+        foreach($_POST['remebered'] as $id){
+            array_push($_SESSION['remebered'],$id);
+        }
+    }
+    else{
+        unset($_SESSION['remebered']);
+        $_SESSION['remebered'] = [];
+    }
+
+    return "redirect:" . $_GET['from'] . "?page=1";
+}
+
+function remeberedImgs(&$model){
+
+    $remeberedImages = [];
+
+    foreach($_SESSION['remebered'] as $id){
+        array_push($remeberedImages, get_image($id));
+    }
+
+    $model['images'] = $remeberedImages;
+    
+
+    return "gallery_view";
 }

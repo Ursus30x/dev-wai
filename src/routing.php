@@ -11,4 +11,6 @@ $routing = [
     '/register' => 'register',
     '/login' => 'login',
     '/logout' => 'logout',
+    '/remeber' => 'updateRemebered',
+    '/remebered' => 'remeberedImgs',
 ];
