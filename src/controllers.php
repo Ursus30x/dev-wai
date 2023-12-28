@@ -22,11 +22,21 @@ function rules(&$model){
 
 
 function gallery(&$model){
-    $images = get_images();
+    $tmpImages = get_images();
+
     if(!isset($_SESSION['remebered']))
         $_SESSION['remebered'] = [];
     if(!isset($_SESSION['username']))
         $_SESSION['username'] = null;
+
+    $images = [];
+
+    foreach($tmpImages as $image){
+        if ($image['visibility'] == 'public'
+        || ($image['visibility'] == 'private' && $image['author'] == $_SESSION['username'])){
+            array_push($images,$image);
+        }
+    }
     
     $model['images']= $images;
     return 'gallery_view';
