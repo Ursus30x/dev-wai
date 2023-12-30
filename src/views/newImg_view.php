@@ -39,13 +39,11 @@
                 <br>
                 <label>
                     <span>Image: </span>
-                    <input type="file" name="source" accept=".png,.jpg,.jpeg" required>
+                    <input type="file" name="source" required>
                     <sub>Max: 1MB</sub>
-                    <?php if($_GET['error']==FILE_EXISTS_ERR): ?>
-                        <p>This image already exists</p>
-                    <?php elseif($_GET['error']==FILE_SIZE_ERR): ?>
-                        <p>This file is too large</p>
-                    <?php endif ?>
+                    <?php if(isset($_SESSION['newImgErr'])): ?>
+                        <?= $_SESSION['newImgErr'] ?>
+                    <?php endif ?> 
                 </label>
                 <br>
                 <label>
@@ -62,17 +60,13 @@
                     <label for="private">Private</label>
                 </label>
                 <?php endif ?>
+                <br>
                 <div>
-                    <a href="/gallery?page=1" class="cancel">Cancel</a>
+                    <a href="javascript:history.back()" class="backBtn">Go back</a>
                     <input type="submit" value="Save"/>
                 </div>
             </form>
         </main>
-        <footer>
-            <div id="contactInfo">
-                <p>Jakub Szymczyk</p>
-                <p>jakubszymczyk20@gmail.com</p>
-            </div>
-        </footer>
+        <?php include "partial/footer.php"; ?>
     </body>
 </html>

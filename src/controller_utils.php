@@ -3,11 +3,7 @@
 define("THUMBNAIL_WIDTH", 200);
 define("THUMBNAIL_HEIGHT", 125);
 define("IMG_DEST", "images/");
-define("IMGS_PER_PAGE", 2);
-define("FILE_NO_ERR",0);
-define("FILE_EXISTS_ERR", 1);
-define("FILE_SIZE_ERR", 2);
-define("USERNAME_TAKEN", 1);
+define("IMGS_PER_PAGE", 4);
 
 
 
@@ -33,7 +29,7 @@ function createThumbnailImg($source){
   $im_path = pathinfo($source);
   $im_name = $im_path['filename'];
 
-  imagepng($virtual_image, IMG_DEST . $im_name . '_thumbnail.png');
+  imagewebp($virtual_image, IMG_DEST . $im_name . '_thumbnail.webp');
 }
 
 function createWatermarkImg($source,$text){
@@ -65,30 +61,47 @@ function createWatermarkImg($source,$text){
 }
 
 function imageCheck(){
-  $target_file = IMG_DEST . basename($_FILES["source"]["name"]);
+  $target_file = basename($_FILES["source"]["name"]);
   $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-
+  $err = '';
 
   if (file_exists($target_file)) {
-    return 1;
+    $err .= '<p class="errorTxt">File already exists, try again in few seconds</p>';
   } 
-  else if ($_FILES["source"]["size"] > 10000000) {
-    return 2;
+  if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
+    $err .= '<p class="errorTxt">File is a wrong type</p>';
   } 
-
-  return 0;
+  if (filesize($_FILES["source"]["tmp_name"]) >= 1000000) {
+    $err .= '<p class="errorTxt">File is too large</p>';
+  } 
+  
+  return $err;
 }
 
-function upload(){
-  $target_file = IMG_DEST . basename($_FILES["source"]["name"]);
+function upload($path){
+  $target_file = IMG_DEST . $path;
   move_uploaded_file($_FILES["source"]["tmp_name"], $target_file);
 }
 
-function isLoginTaken($username){
+function passwordConfirmation($password, $repeat){
+  if($password == $repeat){
+    $_SESSION['registerPasswordErr'] = '';
+    return true;
+  }
+  else{
+    $_SESSION['registerPasswordErr'] = '<p class="errorTxt">Password doesnt match the repeated password</p>';
+    return false;
+  }
+}
+
+function isUsernameTaken($username){
   $users = get_users();
   foreach($users as $user){
-    if($user['username'] == $username)return true;
+    if($user['username'] == $username){
+      $_SESSION['registerUsernameErr'] = '<p class="errorTxt">Username is taken</p>';
+      return true;
+    }
   }
-
+  $_SESSION['registerUsernameErr'] = '';
   return false;
 }

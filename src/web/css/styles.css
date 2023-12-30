@@ -184,3 +184,15 @@ a {
     color: #FFFFFF;
 	transition: 1s all;
 }
+
+.errorTxt{
+    color: red;
+}
+
+.pageLink{
+    color:black;
+}
+
+.backBtn{
+    color:black;
+}

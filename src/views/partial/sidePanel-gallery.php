@@ -40,6 +40,9 @@
         <a class="option" href="/gallery?page=1">
             <h4>Image gallery</h4>
         </a>
+        <a class="option" href="/remebered?page=1">
+            <h4>Remebered gallery</h4>
+        </a>
         <a class="option" href="/register?error=0">
             <h4>Create Account</h4>
         </a>

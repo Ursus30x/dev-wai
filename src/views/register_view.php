@@ -26,8 +26,8 @@
                 <label>
                     <span>Login:</span>
                     <input type="text" name="username"  required/>
-                    <?php if($_GET['error']==USERNAME_TAKEN): ?>
-                        <p>Usermame is taken</p>
+                    <?php if(isset($_SESSION['registerUsernameErr'])): ?>
+                        <?= $_SESSION['registerUsernameErr'] ?>
                     <?php endif ?>
                 </label>
                 <br>
@@ -44,20 +44,18 @@
                 <label>
                     <span>Confirm password:</span>
                     <input type="password" name="confirm"  required/>
+                    <?php if(isset($_SESSION['registerPasswordErr'])): ?>
+                        <?= $_SESSION['registerPasswordErr'] ?>
+                    <?php endif ?>
                 </label>
                 
-
+                <br><br>
                 <div>
-                    <a href="/gallery?page=1" class="cancel">Cancel</a>
+                <a href="javascript:history.back()" class="backBtn">Go back</a>
                     <input type="submit" value="Register"/>
                 </div>
             </form>
         </main>
-        <footer>
-            <div id="contactInfo">
-                <p>Jakub Szymczyk</p>
-                <p>jakubszymczyk20@gmail.com</p>
-            </div>
-        </footer>
+        <?php include "partial/footer.php"; ?>
     </body>
 </html>

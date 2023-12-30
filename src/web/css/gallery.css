@@ -1,0 +1,33 @@
+#communityGallery{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: left;
+}
+
+.comImg{
+    margin: 3%;
+    background-color: rgb(199, 199, 199);
+}
+
+.comImgInfo{
+    padding:1%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.comImgInfoRight > input{
+    float:right;
+}
+
+#pageNavigation{
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+}
+
+#pageNavigation > *{
+    margin: 0 5px;
+}
+

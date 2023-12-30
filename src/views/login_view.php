@@ -32,18 +32,16 @@
                     <span>Password:</span>
                     <input type="password" name="password"  required/>
                 </label>
-        
+                <?php if(isset($_SESSION['loginErr'])): ?>
+                    <?= $_SESSION['loginErr'] ?>
+                <?php endif ?>
+                <br><br>
                 <div>
-                    <a href="/gallery?page=1" class="cancel">Cancel</a>
+                    <a href="javascript:history.back()" class="backBtn">Go back</a>
                     <input type="submit" value="Log in"/>
                 </div>
             </form>
         </main>
-        <footer>
-            <div id="contactInfo">
-                <p>Jakub Szymczyk</p>
-                <p>jakubszymczyk20@gmail.com</p>
-            </div>
-        </footer>
+        <?php include "partial/footer.php"; ?>
     </body>
 </html>

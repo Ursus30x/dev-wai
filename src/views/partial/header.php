@@ -1,18 +1,18 @@
 <header>
     <div id="logo">
-        <a href="index.html">
+        <a href="/main">
             <img class="logo-img" src="img/dnd_logo.webp" alt="d&d logo">
         </a>
     </div>
     <noscript>
         <div class="no-js-menu" id="headerMenu">
-            <a class="noJsOption" href="characterCreation.html">
+            <a class="noJsOption" href="/characterCreation">
                 <h4>Character</h4>
             </a>
-            <a class="noJsOption" href="basicRules.html">
+            <a class="noJsOption" href="/rules">
                 <h4>Rules</h4>
             </a>
-            <a class="noJsOption" href="lore.html">
+            <a class="noJsOption" href="/lore">
                 <h4>Lore</h4>
             </a>
         </div>

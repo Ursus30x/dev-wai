@@ -317,11 +317,6 @@
                 <a class="goBackButton" href="#racesArticle">go back to Races</a>    
             </div>
         </main>
-        <footer>
-            <div id="contactInfo">
-                <p>Jakub Szymczyk</p>
-                <p>jakubszymczyk20@gmail.com</p>
-            </div>
-        </footer>    
+        <?php include "partial/footer.php"; ?>
     </body>
 </html>

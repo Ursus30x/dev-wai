@@ -27,9 +27,9 @@ function get_users(){
     return $db->users->find()->toArray();
 }
 
-function get_user($query){
+function get_user($username){
     $db = get_db();
-    return $db->users->findOne($query);
+    return $db->users->findOne(['username' => $username]);
 }
 
 function get_image($id){
