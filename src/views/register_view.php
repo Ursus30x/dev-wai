@@ -33,7 +33,7 @@
                 <br>
                 <label>
                     <span>E-mail:</span>
-                    <input type="text" name="email"  required/>
+                    <input type="email" name="email"  required/>
                 </label>
                 <br>
                 <label>

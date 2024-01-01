@@ -101,8 +101,6 @@ function register(){
                 'email' => $_POST['email'],
                 'password' => password_hash($_POST['password'], PASSWORD_BCRYPT)
             ];
-
-            echo password_hash($_POST['password'], PASSWORD_BCRYPT);
     
             create_user($user);
             return "redirect:gallery?page=1";
@@ -151,21 +149,28 @@ function logout(){
     return "redirect:gallery?page=1";
 }
 
-function updateRemebered(){
+
+
+function addRemebered(){
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remebered'])) {
-        unset($_SESSION['remebered']);
-        $_SESSION['remebered'] = [];
-        
+
         foreach($_POST['remebered'] as $id){
-            array_push($_SESSION['remebered'],$id);
+            if(!array_search($id,$_SESSION['remebered']))array_push($_SESSION['remebered'],$id);
         }
     }
-    else{
-        unset($_SESSION['remebered']);
-        $_SESSION['remebered'] = [];
+
+    return "redirect:" . $_GET['from'] . "?page=" . $_GET['page'];
+}
+
+function unsetRemebered(){
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remebered'])) {
+
+        foreach($_POST['remebered'] as $id){
+            unset($_SESSION['remebered'][array_search($id,$_SESSION['remebered'])]);
+        }
     }
 
-    return "redirect:" . $_GET['from'] . "?page=1";
+    return "redirect:" . $_GET['from'] . "?page=" . $_GET['page'];
 }
 
 function remeberedImgs(&$model){
@@ -178,5 +183,5 @@ function remeberedImgs(&$model){
 
     $model['images'] = $remeberedImages;
     
-    return "gallery_view";
+    return "remebered_view";
 }

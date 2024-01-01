@@ -24,13 +24,13 @@
             <?php else: ?>
                 <h2>Remebered images</h2>
             <?php endif ?>
-            <form method="post" action="/addRemeber?from=<?= $_GET['action'] ?>&&page=<?= $_GET['page'] ?>">
-                <div id="communityGallery">
+            <form method="post" action="/unsetRemeber?from=<?= $_GET['action'] ?>&&page=<?= $_GET['page'] ?>">
+            <div id="communityGallery">
                     <?php if(count($images)): ?>
                         <?php for($i=(IMGS_PER_PAGE)*((int)($_GET['page'])-1);$i<(IMGS_PER_PAGE)*((int)($_GET['page'])) && $i < count($images);$i++): 
                         $image = $images[$i]?>
                                 <div class="comImg">
-                                    <a href="<?= IMG_DEST . pathinfo($image['source'] ,PATHINFO_FILENAME) . "_watermark.png"?>" class="comImgMini">
+                                    <a href="<?= IMG_DEST . pathinfo($image['source'] ,PATHINFO_FILENAME) . "_watermark.png"?> class="comImgMini"">
                                         <img src="<?= IMG_DEST . pathinfo($image['source'] ,PATHINFO_FILENAME) . "_thumbnail.webp"?>" alt="community image">
                                     </a>
                                     <br>
@@ -40,10 +40,7 @@
                                             <p class="comImgAuthor"><?= $image['author'] ?></p>
                                         </div>
                                         <div class="comImgInfoRight">
-                                            <input type="checkbox" name="remebered[]" value="<?= $image['_id'] ?>" 
-                                            <?php if( in_array($image['_id'], $_SESSION['remebered'] ) ) :?> 
-                                                checked
-                                            <?php endif ?>>
+                                            <input type="checkbox" name="remebered[]" value="<?= $image['_id'] ?>">
                                             <?php if($image['visibility']=='private'): ?>
                                                 <sup>(Private)</sup>
                                             <?php endif ?>
@@ -60,15 +57,15 @@
                 <p id="imagesAmount">Total images: <?= count($images) ?></p>
                 <div id="pageNavigation">
                     <?php if( (int)($_GET['page']) > 1): ?> 
-                        <a class="pageLink" href="/gallery?page=<?= (int)($_GET['page'])-1 ?>">Previous</a>
+                        <a class="pageLink" href="/remebered?page=<?= (int)($_GET['page'])-1 ?>">Previous</a>
                     <?php endif ?>
                     <p><?= ($_GET['page']) ?></p>
                     <?php if( (int)($_GET['page']) < count($images)/IMGS_PER_PAGE): ?> 
-                        <a class="pageLink" href="/gallery?page=<?= (int)($_GET['page'])+1 ?>">Next</a>
+                        <a class="pageLink" href="/remebered?page=<?= (int)($_GET['page'])+1 ?>">Next</a>
                     <?php endif ?>
                 </div>
                 <a class="pageLink" href="/newImg?error=0" id="addNewImg">Add new image</a>
-                <input type="submit" value="Remeber chosen">
+                <input type="submit" value="Forget chosen">
             </form>
         </main>
         <?php include "partial/footer.php"; ?>

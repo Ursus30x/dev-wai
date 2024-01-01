@@ -53,7 +53,7 @@
                 <br>
                 <?php if(isset($_SESSION['isLoggedIn'])): ?>
                 <label>
-                    <span>Visibility</span>
+                    <span>Visibility:</span>
                     <input type="radio" id="public" name="visibility" value="public" checked>
                     <label for="public">Public</label>
                     <input type="radio" id="private" name="visibility" value="private">
